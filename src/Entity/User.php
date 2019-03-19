@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -40,6 +43,11 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $roles;
 
     /**
      * @ORM\Column(type="datetime")
@@ -138,5 +146,31 @@ class User
         $this->company = $company;
 
         return $this;
+    }
+
+    public function fullname()
+    {
+        return $this->getFirstname() . ' ' . $this->getLastname();
+    }
+
+    public function getSalt()
+    {
+
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
     }
 }

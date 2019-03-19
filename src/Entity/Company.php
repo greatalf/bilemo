@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
  */
 class Company
@@ -27,16 +29,6 @@ class Company
      * @ORM\Column(type="string", length=255)
      */
     private $address;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="company")
@@ -73,18 +65,6 @@ class Company
     public function setAddress(string $address): self
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
 
         return $this;
     }
